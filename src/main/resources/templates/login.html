@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="_layout">
+<head>
+  <meta charset="UTF-8">
+  <title>Trang chủ</title>
+</head>
+<body>
+<div layout:fragment="content" class="container body-content">
+  <form th:action="@{/login}" method="post" style="max-width: 350px; margin: 0 auto;">
+    <div th:if="${param.error}">
+      <p class="text-danger">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</p>
+    </div>
+
+    <div th:if="${param.logout}">
+      <p class="text-warning">You have been logged out.</p>
+    </div>
+    <div class="border border-secondary p-3 rounded">
+      <p>Access to Product system</p>
+      <p>
+        <input type="text" name="username" class="form-control" required autofocus/>
+      </p>
+      <p>
+        <input type="password" name="password" class="form-control" placeholder="Password" required />
+      </p>
+      <p>
+        <input type="checkbox" name="remember-me" />&nbsp;Remember Me
+      </p>
+      <p>
+        Don't have an account? <a th:href="@{/register}">Register here</a>
+      </p>
+      <p>
+        <input type="submit" value="Login" class="btn btn-primary" />
+      </p>
+    </div>
+  </form>
+</div>
+</body>
+</html>
+
+

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.w3.org/1999/xhtml"  layout:decorate="_layout">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit</title>
+</head>
+<body>
+<div layout:fragment="content" class="container body-content">
+  <!-- form product !-->
+  <form th:action="@{/products/edit}" th:object="${product}" method="post" class="form" enctype = "multipart/form-data">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input class="form-control" type="text" th:field="*{name}" id="name"  placeholder="Product Name">
+      <div class="alert alert-warning" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+    </div>
+    <div class="form-group">
+      <label for="image">Image:</label>
+      <!--  <input class="form-control" type="text" th:field="*{image}" id="image" placeholder="image">-->
+      <img  class="form-control"  th:src="@{/images/} + *{image}" placeholder="image"/>
+      <input class="form-control" type="file" id="image" name="imageProduct" accept="image/png, image/jpeg">
+
+      <div class="alert alert-warning" th:if="${#fields.hasErrors('image')}" th:errors="*{image}"></div>
+    </div>
+    <div class="form-group">
+      <label for="price">Price:</label>
+      <input class="form-control" type="number" th:field="*{price}" id="price" placeholder="price">
+      <div class="alert alert-warning" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
+    </div>
+
+    <div>
+      <label for="category">Category:</label>
+      <select id="category" name="category" th:field="*{category}" required>
+        <option value="">Select a category</option>
+        <option th:each="category : ${listCategory}" th:value="${category.id}" th:text="${category.name}"></option>
+      </select>
+    </div>
+    <input type="submit"  class="btn btn-success" value="Save Product">
+  </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="_layout"
+      xmlns:custom="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>List product</title>
+</head>
+<body>
+<div layout:fragment="content" class="container body-content">
+  <a th:href="@{~/admin/products/create}" class="btn btn-primary">Create New Product</a>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Image</th>
+      <th scope="col">Price</th>
+      <th scope="col">Category</th>
+      <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="product : ${listproduct}" >
+      <th scope="row" th:text="${product.id}"></th>
+      <td th:text="${product.name}"></td>
+      <!--   <td th:text="${product.image}"></td> -->
+      <td>
+        <img height="120" width="150" th:src="@{/images/} + ${product.image}"/>
+      </td>
+      <td th:text="${product.price}"></td>
+      <td th:text="${product.category.name}"></td>
+      <td>
+        <a th:href="@{/admin/products/edit/{id}(id=${product.id})}" custom:linkMethod="post"  class="btn btn-secondary">Edit</a>
+        <a th:href="@{/admin/products/delete/{id}(id=${product.id})}" custom:linkMethod="post" class="btn btn-danger">Delete</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>
